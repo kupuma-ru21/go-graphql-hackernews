@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"hackernews/graph"
+	"hackernews/internal/auth"
 	database "hackernews/internal/pkg/db/mysql"
 
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -22,6 +23,8 @@ func main() {
 	}
 
 	router := chi.NewRouter()
+
+	router.Use(auth.Middleware())
 
 	database.InitDB()
 	defer database.CloseDB()
